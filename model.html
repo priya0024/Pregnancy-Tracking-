@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Prediction Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="modelstyle.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="modelfooter.css">
+    <link rel="stylesheet" href="modelheader.css">
+</head>
+<body>
+    <header class="hero-section text-center"></header>
+        <div class="container">
+            <h1 class="hero-title">Personalized Nutrition and Exercise Recommendations</h1>
+            <p class="hero-subtitle">Tailored Health and Wellness Plans for Pregnant Mothers</p>
+        </div>
+    </header>
+    <div class="container mt-5">
+               
+        <form id="predictionForm">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="age">Age:</label>
+                    <input type="number" class="form-control" id="age" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" class="form-control" id="weight" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" class="form-control" id="height" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="bmi">BMI:</label>
+                    <input type="number" class="form-control" id="bmi" readonly>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="trimester">Trimester:</label>
+                    <select class="form-control" id="trimester" required>
+                        <option value="1">1st Trimester</option>
+                        <option value="2">2nd Trimester</option>
+                        <option value="3">3rd Trimester</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="daily_calories">Daily Calorie Intake:</label>
+                    <input type="number" class="form-control" id="daily_calories" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="diet">Preferred Diet:</label>
+                    <select class="form-control" id="diet" required>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Non-Vegetarian">Non-Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Pescatarian">Pescatarian</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="allergies">Allergies (if any):</label>
+                    <input type="text" class="form-control" id="allergies">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="exercise">Exercise Level:</label>
+                    <select class="form-control" id="exercise" required>
+                        <option value="Low">Low</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="conditions">Medical Conditions:</label>
+                    <input type="text" class="form-control" id="conditions">
+                </div>
+            </div>
+
+            <!-- Toggle Example -->
+            <div class="form-group">
+                <label>Active:</label>
+                <div class="toggle-btn" id="toggle">
+                    <span></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-sm" style="width: auto;">Submit for Prediction</button>
+
+
+        </form>
+
+        <!-- Placeholder for predicted results -->
+        <div id="predictionResults" class="mt-4"></div>
+    </div>
+
+    <script src="model.js"></script>
+
+    <script>
+        // Toggle button logic
+        const toggleBtn = document.getElementById('toggle');
+        toggleBtn.addEventListener('click', function() {
+            toggleBtn.classList.toggle('active');
+        });
+
+        // BMI calculation (same as previous logic)
+        document.getElementById('weight').addEventListener('input', calculateBMI);
+        document.getElementById('height').addEventListener('input', calculateBMI);
+
+        function calculateBMI() {
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value;
+
+            if (weight && height) {
+                const heightInMeters = height / 100;
+                const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+                document.getElementById('bmi').value = bmi;
+            } else {
+                document.getElementById('bmi').value = '';
+            }
+        }
+    </script>
+
+<div class="container">
+    <!-- Your main content goes here -->
+</div>
+
+<footer class="p-4">
+    <div class="container">
+        <h5>Pregnancy Nutrition and Exercise Recommendation Model</h5>
+        <p>
+            This machine learning model is designed to recommend personalized food and exercise plans for pregnant mothers. The model uses various input features related to a mother's health and pregnancy stage, such as:
+        </p>
+        <ul>
+            <li><strong>User ID</strong>: Unique identifier for each user.</li>
+            <li><strong>Age</strong>: The age of the user.</li>
+            <li><strong>Weight (kg) and Height (cm)</strong>: Body measurements used to calculate BMI (Body Mass Index).</li>
+            <li><strong>BMI</strong>: Body Mass Index, an indicator of body fat based on weight and height.</li>
+            <li><strong>Trimester</strong>: Current pregnancy trimester (1st, 2nd, or 3rd), which influences nutritional and exercise needs.</li>
+            <li><strong>Daily Calorie Intake</strong>: The amount of calories the user consumes daily.</li>
+            <li><strong>Preferred Diet</strong>: The type of diet preferred by the user (e.g., vegetarian, vegan, balanced diet).</li>
+            <li><strong>Allergies</strong>: Known food allergies that the model considers when recommending meals.</li>
+            <li><strong>Exercise Level</strong>: The user’s current level of physical activity.</li>
+            <li><strong>Medical Conditions</strong>: Any medical conditions that need to be factored into the recommendations.</li>
+        </ul>
+        <p>
+            Using this data, the model generates personalized food and exercise plans that cater to the unique nutritional and physical activity requirements of pregnant women. It considers factors such as dietary restrictions, allergies, and health conditions to ensure the recommendations are safe and beneficial.
+        </p>
+        <p>
+            The model aims to promote optimal maternal health by aligning nutritional and exercise guidelines with the specific needs of each individual.
+        </p>
+    </div>
+</footer>
+
+    </div>
+</footer>
+</body>
+</html>
